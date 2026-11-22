@@ -336,6 +336,27 @@ section.alt { background: linear-gradient(180deg, var(--bg-2), var(--bg)); }
 .cd-links a:hover { text-decoration: underline; }
 .cd-links .copy { margin-left: auto; background: var(--bg); border-color: var(--line-2); color: var(--soft); }
 
+/* Applications web : cartes compactes lumineuses */
+.apps-head { margin-top: 56px; }
+.apps-head h3 { font-size: clamp(24px, 3vw, 32px); }
+.apps-head p { color: var(--muted); max-width: 70ch; margin-top: 8px; }
+.apps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+.app { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 10px; background: linear-gradient(180deg, var(--surface-2), var(--surface)); border: 1px solid var(--line); border-radius: 20px; padding: 24px; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+.app::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(120, 166, 255, 0.2) 1px, transparent 1.3px); background-size: 18px 18px; -webkit-mask-image: linear-gradient(135deg, #000, transparent 55%); mask-image: linear-gradient(135deg, #000, transparent 55%); pointer-events: none; }
+.app::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--hi), transparent); transform: translateX(-100%); animation: app-scan 5s ease-in-out infinite; }
+.app:nth-child(2n)::after { animation-delay: 1s; } .app:nth-child(3n)::after { animation-delay: 2s; }
+@keyframes app-scan { 0% { transform: translateX(-100%); } 40%, 100% { transform: translateX(100%); } }
+.app:hover { transform: translateY(-4px); border-color: rgba(45, 224, 208, 0.6); box-shadow: 0 0 0 1px rgba(45, 224, 208, 0.3), 0 30px 60px -30px rgba(45, 224, 208, 0.35); }
+.app > * { position: relative; z-index: 1; }
+.app-n { position: absolute !important; top: 14px; right: 20px; font-family: var(--font-display); font-weight: 800; font-size: 44px; line-height: 1; background: linear-gradient(180deg, rgba(120, 166, 255, 0.5), transparent); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.app .client { font-family: var(--font-mono); font-size: 12px; color: var(--hi); text-transform: uppercase; letter-spacing: 0.05em; padding-right: 48px; }
+.app h4 { font-size: 20px; line-height: 1.2; }
+.app p { font-size: 14.5px; color: var(--muted); }
+.app-link { align-self: flex-start; font-family: var(--font-mono); font-size: 12.5px; color: var(--hi); text-decoration: none; padding: 6px 14px; border: 1px dashed rgba(45, 224, 208, 0.55); border-radius: 999px; margin-top: 4px; }
+.app-link:hover { background: rgba(45, 224, 208, 0.1); }
+@media (max-width: 1020px) { .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .apps { grid-template-columns: 1fr; } }
+
 /* Parcours : frise */
 .career { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr); gap: 56px; align-items: start; }
 .tl { list-style: none; margin: 0; padding: 0 0 0 34px; position: relative; }
@@ -433,6 +454,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   #contact-dialog[open] { animation: none !important; }
+  .app::after { animation: none !important; display: none; }
   .board, .board::before, .kpi, .bars .target, .bars.in .bar, .badge::before, .trend .mk circle.ring { animation: none !important; }
   .trend polyline { stroke-dashoffset: 0 !important; animation: none !important; }
   .thumb *, .thumb::after, .node::after, .node-btn, .stream, .profile-card, .profile-card::before, .profile-photo, .profile-photo::before, .profile-photo::after, .tile { animation: none !important; }
@@ -578,7 +600,7 @@ footer a:hover { color: var(--hi); border-color: var(--hi); }
     <div class="sec-head">
       <span class="kicker">03 · Réalisations</span>
       <h2 class="sec-title">Des projets, des résultats</h2>
-      <p class="sec-sub">Six missions choisies parmi mes références récentes.</p>
+      <p class="sec-sub">Six missions choisies parmi mes références récentes, puis une sélection d'applications que j'ai développées.</p>
     </div>
     <div class="projects">
       <article class="project featured">
@@ -700,6 +722,60 @@ footer a:hover { color: var(--hi); border-color: var(--hi); }
           <p>Formations à l'IA générative et à ODK Central, ODK Collect et KoboToolbox. Conception et animation, avec un guide de formation (2026), d'un parcours sur l'IA générative et les agents IA pour des organisations de défense des droits des femmes en RDC.</p>
           <div class="tags"><span>Claude</span><span>ChatGPT</span><span>Gemini</span><span>Meta AI</span><span>ODK</span><span>Formation</span></div>
         </div>
+      </article>
+    </div>
+    <div class="apps-head">
+      <h3>Applications web et outils numériques</h3>
+      <p>Au-delà de la donnée, je conçois et déploie des applications web, en m'appuyant sur des outils d'IA (Lovable), React et TypeScript. Une sélection parmi mes projets GitHub et Lovable.</p>
+    </div>
+    <div class="apps">
+      <article class="app">
+        <span class="app-n" aria-hidden="true">01</span>
+        <span class="client">Santé publique · 2026</span>
+        <h4>Epi Watch Live, modélisation d'Ebola</h4>
+        <p>Plateforme à deux modes : un modèle SEIRD projette l'évolution d'une épidémie d'Ebola et estime le risque de transmission par région, avec ingestion automatisée des bulletins officiels, calage des paramètres en mode expert, mode médecin simplifié et rapports automatiques.</p>
+        <div class="tags"><span>SEIRD</span><span>Modélisation</span><span>Rapports</span><span>IA</span></div>
+        <a class="app-link" href="https://github.com/bepoukas/ai-ebola-risk-platform-drc" target="_blank" rel="noopener noreferrer">Code sur GitHub ↗</a>
+      </article>
+      <article class="app">
+        <span class="app-n" aria-hidden="true">02</span>
+        <span class="client">Santé publique · 2026</span>
+        <h4>Aide au triage clinique en RDC</h4>
+        <p>Outil d'aide à la décision conçu pour les médecins des Cliniques Universitaires de Kinshasa : console de triage différentiel (Ebola, paludisme, fièvre typhoïde), accès sécurisé et rapports PDF à l'en-tête de l'institution.</p>
+        <div class="tags"><span>Triage</span><span>Accès sécurisé</span><span>PDF</span><span>IA</span></div>
+        <a class="app-link" href="https://github.com/bepoukas/ai-clinical-triage-ebola-drc" target="_blank" rel="noopener noreferrer">Code sur GitHub ↗</a>
+      </article>
+      <article class="app">
+        <span class="app-n" aria-hidden="true">03</span>
+        <span class="client">Formation médicale · 2026</span>
+        <h4>Simulateur de formation pour médecins</h4>
+        <p>Simulateur qui permet aux médecins d'appliquer un modèle mathématique épidémique en situation de formation, avec chargement de données selon le format du modèle.</p>
+        <div class="tags"><span>Simulation</span><span>Formation</span><span>Données</span></div>
+        <a class="app-link" href="https://github.com/bepoukas/similateur_ebola" target="_blank" rel="noopener noreferrer">Code sur GitHub ↗</a>
+      </article>
+      <article class="app">
+        <span class="app-n" aria-hidden="true">04</span>
+        <span class="client">Éducation · RDC · 2026</span>
+        <h4>Suivi Manuel : distribution de manuels scolaires</h4>
+        <p>Plateforme de suivi de la distribution de manuels et de guides pédagogiques, des dépôts provinciaux aux centres locaux et aux écoles primaires publiques, pour un programme visant 5,6 millions d'élèves et 170 000 enseignants.</p>
+        <div class="tags"><span>Logistique</span><span>Suivi</span><span>Tableaux de bord</span></div>
+        
+      </article>
+      <article class="app">
+        <span class="app-n" aria-hidden="true">05</span>
+        <span class="client">Gestion · 2026</span>
+        <h4>Your Business Compass : ERP achats</h4>
+        <p>Application de gestion des achats : réquisitions, fournisseurs et réceptions, contrôle budgétaire en temps réel, circuits d'approbation selon le montant, comparaison de devis et recherche plein texte dans les documents.</p>
+        <div class="tags"><span>ERP</span><span>Workflow</span><span>Budget</span></div>
+        
+      </article>
+      <article class="app">
+        <span class="app-n" aria-hidden="true">06</span>
+        <span class="client">Web · 2026</span>
+        <h4>Sites pour la société civile et l'administration</h4>
+        <p>Sites institutionnels pour des organisations de défense des droits des femmes (CC CONGO, APAF) et un portail pour la Direction Générale des Recettes du Maniema : design soigné, indicateurs d'impact, formulaires de contact et de don.</p>
+        <div class="tags"><span>React</span><span>TypeScript</span><span>Responsive</span></div>
+        
       </article>
     </div>
     <p class="note">Les données des projets restent confidentielles : seuls les méthodes et les résultats sont présentés ici.</p>
